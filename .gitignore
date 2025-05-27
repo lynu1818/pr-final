@@ -2,3 +2,5 @@
 /dim_reduction/wikiart_selected_styles
 /dim_reduction/subset_selection1.ipynb
 /dim_reduction/__pycache__
+/cnn/__pycache__
+/cnn/cnn_features
