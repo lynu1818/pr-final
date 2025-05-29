@@ -4,3 +4,5 @@
 /dim_reduction/__pycache__
 /cnn/__pycache__
 /cnn/cnn_features
+/egyptian/egyptian_labeled_arrow
+/egyptian/Dataset/
