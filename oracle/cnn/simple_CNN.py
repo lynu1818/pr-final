@@ -10,10 +10,9 @@ import seaborn as sns
 from sklearn.metrics import classification_report, confusion_matrix, accuracy_score
 import mnist_reader
 
-# === 1. 資料準備 ===
-
-x_train, y_train = mnist_reader.load_data('/home/lynuc/pr-final/oracle-mnist/data/oracle', kind='train')
-x_test, y_test = mnist_reader.load_data('/home/lynuc/pr-final/oracle-mnist/data/oracle', kind='t10k')
+# 要在 pre-final/oracle/cnn/ 資料夾中執行，才找的到檔案
+x_train, y_train = mnist_reader.load_data('../../data/oracle', kind='train')
+x_test, y_test = mnist_reader.load_data('../../data/oracle', kind='t10k')
 
 x_train = x_train.reshape(-1, 1, 28, 28).astype(np.float32) / 255.0
 x_test = x_test.reshape(-1, 1, 28, 28).astype(np.float32) / 255.0
@@ -30,9 +29,6 @@ test_loader = DataLoader(test_dataset, batch_size=64)
 output_dir = "cnn_output_pytorch"
 os.makedirs(output_dir, exist_ok=True)
 
-
-# === 2. CNN 模型定義 ===
-
 class SimpleCNN(nn.Module):
     def __init__(self, num_classes=10):
         super(SimpleCNN, self).__init__()
@@ -45,8 +41,8 @@ class SimpleCNN(nn.Module):
         self.fc2 = nn.Linear(128, num_classes)
 
     def forward(self, x):
-        x = self.pool1(F.relu(self.conv1(x)))  # (N, 32, 13, 13)
-        x = self.pool2(F.relu(self.conv2(x)))  # (N, 64, 5, 5)
+        x = self.pool1(F.relu(self.conv1(x)))
+        x = self.pool2(F.relu(self.conv2(x)))
         x = self.flatten(x)
         x = F.relu(self.fc1(x))
         return self.fc2(x)
@@ -54,12 +50,8 @@ class SimpleCNN(nn.Module):
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 model = SimpleCNN(num_classes=10).to(device)
 
-# === 3. 損失與優化器 ===
-
 criterion = nn.CrossEntropyLoss()
 optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
-
-# === 4. 訓練模型 ===
 
 train_losses = []
 train_accuracies = []
@@ -79,7 +71,7 @@ for epoch in range(20):
         optimizer.step()
 
         train_loss += loss.item()
-    # 預測與統計正確數
+
     with torch.no_grad():
         preds = torch.argmax(outputs, dim=1)
         correct += (preds == labels).sum().item()
@@ -91,11 +83,8 @@ for epoch in range(20):
     train_accuracies.append(train_acc)
     print(f"Epoch {epoch + 1}, Loss: {avg_loss:.4f}, Accuracy: {train_acc:.4f}")
 
-
-# 儲存最後訓練完的模型
 torch.save(model.state_dict(), "best_cnn_model.pt")
 
-# === 4.5 畫出 Loss 與 Accuracy 曲線 ===
 plt.figure(figsize=(10, 4))
 
 plt.subplot(1, 2, 1)
@@ -118,9 +107,6 @@ plt.tight_layout()
 plt.savefig(os.path.join(output_dir, "training_curves.png"))
 plt.close()
 
-
-# === 5. 測試與預測 ===
-
 model.load_state_dict(torch.load("best_cnn_model.pt"))
 model.eval()
 
@@ -139,12 +125,9 @@ accuracy = accuracy_score(all_labels, all_preds)
 print(f"✅ CNN Accuracy (PyTorch 28x28): {accuracy:.4f}")
 print(classification_report(all_labels, all_preds))
 
-# === 6. 輸出結果 ===
-
 output_dir = "cnn_output_pytorch"
 os.makedirs(output_dir, exist_ok=True)
 
-# 混淆矩陣
 cm = confusion_matrix(all_labels, all_preds)
 plt.figure(figsize=(8, 6))
 sns.heatmap(cm, annot=True, fmt='d', cmap='Blues',
@@ -157,7 +140,6 @@ plt.tight_layout()
 plt.savefig(os.path.join(output_dir, "confusion_matrix_cnn_28x28.png"))
 plt.close()
 
-# classification_report 儲存
 report = classification_report(all_labels, all_preds, output_dict=True)
 flat_report = {}
 for label, scores in report.items():
