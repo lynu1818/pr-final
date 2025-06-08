@@ -37,7 +37,7 @@ This project explores classification and clustering techniques on two symbolic i
 
 #### Dimensionality Reduction:
 - **PCA**: n ∈ {2, 4, 8, 16, 32}
-- **LDA**: n = 9
+- **LDA**: n = 32
 
 #### Classifiers:
 - SVM with RBF kernel
