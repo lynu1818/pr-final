@@ -4,11 +4,6 @@ This project explores classification and clustering techniques on two symbolic i
 
 ---
 
-## Project Structure
-
-
----
-
 ## Methodology Summary
 
 ### Oracle Bone Script (`oracle/`)
@@ -37,9 +32,20 @@ This project explores classification and clustering techniques on two symbolic i
 
 ### Egyptian Hieroglyphs (`egyptian/`)
 
-#### Workflow:
-- CNN feature extraction on labeled hieroglyph images
-- Same classification and clustering as Oracle dataset
+#### Feature Types:
+- CNN-extracted features (from `egyptian_CNN.py`)
+
+#### Dimensionality Reduction:
+- **PCA**: n ∈ {2, 4, 8, 16, 32}
+- **LDA**: n = 9
+
+#### Classifiers:
+- SVM with RBF kernel
+- Gaussian Naive Bayes (GNB)
+
+#### Clustering:
+- K-means
+- GMM (via EM algorithm)
 
 #### Outputs:
 - Training curves, accuracy/loss plots
@@ -68,8 +74,9 @@ This project explores classification and clustering techniques on two symbolic i
 
 ## Contributors
 
-- [Your Name / ID]
-- [Teammates if applicable]
+- [黃柏陞 / 111062127]
+- [陳俐妤 / 111062218]
+- [林軒羽 / 111062217]
 
 ---
 
