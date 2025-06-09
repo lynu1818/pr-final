@@ -22,7 +22,7 @@ This project explores classification and clustering techniques on two symbolic i
 
   `/egyptian/Dataset/`
   The folder should contain:
-  - `Dataset/train/` — contains subfolders named by class labels (e.g., `0/`, `1/`, ...)
+  - `Dataset/train/` — contains subfolders named by class labels (e.g., `A55/`, `Aa15/`, ...)
   - `Dataset/test/` — same structure as `train/`, used for evaluation
 
   You can load the dataset using:
