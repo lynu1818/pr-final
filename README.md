@@ -20,7 +20,7 @@ This project explores classification and clustering techniques on two symbolic i
 - **Egyptian Hieroglyphs**: Provided as a folder-based image dataset with pre-defined `train/` and `test/` directories, already compatible with Hugging Face's `imagefolder` format.  
   Please download the dataset manually from the Hugging Face Hub [https://huggingface.co/datasets/HamdiJr/Egyptian_hieroglyphs](https://huggingface.co/datasets/HamdiJr/Egyptian_hieroglyphs), and place them in the following path:
 
-  `./Dataset/`
+  `/egyptian/Dataset/`
   The folder should contain:
   - `Dataset/train/` — contains subfolders named by class labels (e.g., `0/`, `1/`, ...)
   - `Dataset/test/` — same structure as `train/`, used for evaluation
