@@ -3,6 +3,34 @@
 This project explores classification and clustering techniques on two symbolic image datasets: **Oracle Bone Script** and **Egyptian Hieroglyphs**. We apply both **traditional machine learning** and **deep learning** approaches, along with **dimensionality reduction**, to extract and analyze meaningful features.
 
 ---
+## Datasets
+
+- **Oracle Bone Script**: Formatted as MNIST-like binary files (`.idx3-ubyte`, `.idx1-ubyte`).  
+  Please download the dataset from the [Oracle-MNIST GitHub repository](https://github.com/wm-bupt/oracle-mnist), extract the files, and place them in the following path:
+
+  `/data/oracle/`  
+  This folder should contain:
+  - `train-images-idx3-ubyte.gz`
+  - `train-labels-idx1-ubyte.gz`
+  - `t10k-images-idx3-ubyte.gz`
+  - `t10k-labels-idx1-ubyte.gz`
+
+  The dataset is loaded using a custom `mnist_reader` script. Images are grayscale (28×28) and normalized before use.
+
+- **Egyptian Hieroglyphs**: Provided as a folder-based image dataset with pre-defined `train/` and `test/` directories, already compatible with Hugging Face's `imagefolder` format.  
+  Please download the dataset manually from the Hugging Face Hub [https://huggingface.co/datasets/HamdiJr/Egyptian_hieroglyphs](https://huggingface.co/datasets/HamdiJr/Egyptian_hieroglyphs), and place them in the following path:
+
+  `./Dataset/`
+  The folder should contain:
+  - `Dataset/train/` — contains subfolders named by class labels (e.g., `0/`, `1/`, ...)
+  - `Dataset/test/` — same structure as `train/`, used for evaluation
+
+  You can load the dataset using:
+
+  ```python
+  dataset = load_dataset("imagefolder", data_dir="./Dataset/train")
+
+
 
 ## Methodology Summary
 
